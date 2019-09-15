@@ -6,6 +6,7 @@
       padding: 10px 10px 10px 10px;
       border-radius: 3px;
       box-shadow: 0 1px 0 rgba(9,30,66,.25);
+      margin-bottom: 12px;
     }
     :host .card-header {
       display: flex;
@@ -13,6 +14,8 @@
       align-items: center;
     }
     :host .card-title {
+      font-size: 0.9rem;
+      font-weight: 700;
       color: #172b4d;
       margin: 0;
     }
@@ -42,13 +45,13 @@
 
   <div class="card">
     <div class="card-header">
-      <h4 class="card-title">Card title</h4>
+      <slot class="card-title" name="title"></slot>
       <div class="card-control">
         <img class="icon-edit" src="img/pencil.svg" alt="edit">
         <img class="icon-caret" src="img/caret.svg" alt="show description">
       </div>
     </div>
-    <div class="card-desc">Description</div>
+    <slot class="card-desc" name="desc"></slot>
   </div>
 </template>
 
@@ -79,9 +82,9 @@
 
       // add a click event to enable card title edit
       shadowRoot.querySelector('.icon-edit').addEventListener('click', e => {
-        shadowRoot.querySelector('.card-title').setAttribute('contenteditable', true);
-        shadowRoot.querySelector('.card-title').focus();
-        shadowRoot.querySelector('.card-title').addEventListener('keypress', e => {
+        shadowRoot.host.querySelector('[slot="title"]').setAttribute('contenteditable', true);
+        shadowRoot.host.querySelector('[slot="title"]').focus();
+        shadowRoot.host.querySelector('[slot="title"]').addEventListener('keypress', e => {
           if (e.keyCode === 13) { // enter key is pressed
             e.target.blur();
             e.target.removeAttribute('contenteditable');

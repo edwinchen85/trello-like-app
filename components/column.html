@@ -7,7 +7,9 @@
       padding: 10px;
       margin-right: 20px;
     }
-    :host .column h3 {
+    :host .column-title {
+      font-size: 1.1rem;
+      font-weight: 700;
       color: #172b4d;
       margin: 0 0 10px 0;
     }
@@ -21,7 +23,7 @@
   </style>
 
   <div class="column">
-    <slot name="title"></slot>
+    <slot class="column-title" name="title"></slot>
     <slot></slot>
     <p class="add-card">+ Add a card</p>
   </div>

@@ -25,5 +25,12 @@ header {
   cursor: pointer;
 }
 main {
+  display: flex;
   padding: 20px 16px;
+}
+trello-column div[slot="title"] {
+  margin-bottom: 10px;
+}
+trello-card div[slot="title"] {
+  margin: 0;
 }
