@@ -41,42 +41,4 @@ main {
 .add-card:hover {
   cursor: pointer;
 }
-.card {
-  min-height: 30px;
-  background: white;
-  padding: 10px 10px 10px 10px;
-  border-radius: 3px;
-  box-shadow: 0 1px 0 rgba(9,30,66,.25);
-}
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.card-title {
-  color: #172b4d;
-  margin: 0;
-}
-.card-desc {
-  display: none;
-  color: #666;
-  padding-top: 8px;
-}
-.icon-edit {
-  width: 24px;
-  height: 24px;
-}
-.icon-caret {
-  width: 20px;
-  height: 20px;
-}
-.icon-edit:hover, .icon-caret:hover {
-  cursor: pointer;
-}
-.rotate {
-  transform: rotate(180deg) translateY(3px);
-}
-.show {
-  display: block;
-}
 

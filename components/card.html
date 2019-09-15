@@ -1,0 +1,117 @@
+<template id="trello-card-tmpl">
+  <style>
+    :host .card {
+      min-height: 30px;
+      background: white;
+      padding: 10px 10px 10px 10px;
+      border-radius: 3px;
+      box-shadow: 0 1px 0 rgba(9,30,66,.25);
+    }
+    :host .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    :host .card-title {
+      color: #172b4d;
+      margin: 0;
+    }
+    :host .card-desc {
+      display: none;
+      color: #666;
+      padding-top: 8px;
+    }
+    :host .icon-edit {
+      width: 24px;
+      height: 24px;
+    }
+    :host .icon-caret {
+      width: 20px;
+      height: 20px;
+    }
+    :host .icon-edit:hover, :host .icon-caret:hover {
+      cursor: pointer;
+    }
+    :host .rotate {
+      transform: rotate(180deg) translateY(3px);
+    }
+    :host .show {
+      display: block;
+    }
+  </style>
+
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title">Card title</h4>
+      <div class="card-control">
+        <img class="icon-edit" src="img/pencil.svg" alt="edit">
+        <img class="icon-caret" src="img/caret.svg" alt="show description">
+      </div>
+    </div>
+    <div class="card-desc">Description</div>
+  </div>
+</template>
+
+<script>
+(function() {
+  let thisImportDoc = document.currentScript.ownerDocument;
+
+  class TrelloCard extends HTMLElement {
+    constructor() {
+      super();
+    }
+
+    static get template() {
+      if (!this._template) {
+        this._template = thisImportDoc.querySelector("#trello-card-tmpl");
+      }
+      return this._template;
+    }
+
+    connectedCallback() {
+      console.log("trello-card connected to page");
+
+      let shadowRoot = this.attachShadow({mode: "open"});
+      let tmpl = TrelloCard.template;
+      shadowRoot.appendChild(
+        document.importNode(tmpl.content,true)
+      );
+
+      // add a click event to enable card title edit
+      shadowRoot.querySelector('.icon-edit').addEventListener('click', e => {
+        shadowRoot.querySelector('.card-title').setAttribute('contenteditable', true);
+        shadowRoot.querySelector('.card-title').focus();
+        shadowRoot.querySelector('.card-title').addEventListener('keypress', e => {
+          if (e.keyCode === 13) { // enter key is pressed
+            e.target.blur();
+            e.target.removeAttribute('contenteditable');
+            return false;
+          }
+        });
+      });
+
+      // add a click event to toggle description
+      shadowRoot.querySelector('.icon-caret').addEventListener('click', e => {
+        shadowRoot.querySelector('.icon-caret').classList.toggle('rotate');
+        shadowRoot.querySelector('.card-desc').classList.toggle('show');
+      });
+    }
+
+    disconnectedCallback() {
+      console.log("trello-card disconnected from page");
+    }
+
+    adoptedCallback() {
+      console.log("trello-card adopted in page");
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+      console.log("trello-card attr: " + name + " changed from '" +
+          oldValue + "' to '" + newValue + "'");
+    }
+  }
+
+  customElements.define("trello-card", TrelloCard);
+})();
+</script>
+
