@@ -6,6 +6,7 @@
   <title></title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="import" href="components/column.html">
   <link rel="import" href="components/card.html">
   <link rel="stylesheet" href="css/main.css">
 </head>
@@ -16,11 +17,9 @@
   </header>
 
   <main>
-    <div class="column">
-      <h3>Column title</h3>
+    <trello-column>
       <trello-card></trello-card>
-      <p class="add-card">+ Add a card</p>
-    </div>
+    </trello-column>
   </main>
 
   <script src="js/db.json"></script>
@@ -28,4 +27,3 @@
 </body>
 
 </html>
-

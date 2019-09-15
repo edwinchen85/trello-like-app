@@ -1,8 +1,11 @@
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: content-box;
 }
 body {
-  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans,
+    Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
   font-size: 14px;
   margin: 0;
   background: #0079be;
@@ -24,21 +27,3 @@ header {
 main {
   padding: 20px 16px;
 }
-.column {
-  background: #ebecf0;
-  width: 270px;
-  border-radius: 3px;
-  padding: 10px;
-}
-.column h3 {
-  color: #172b4d;
-  margin: 0 0 10px 0;
-}
-.add-card {
-  color: #5e6c84;
-  margin: 10px 0 0 0;
-}
-.add-card:hover {
-  cursor: pointer;
-}
-

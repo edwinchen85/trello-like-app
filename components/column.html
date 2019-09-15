@@ -1,0 +1,72 @@
+<template id="trello-column-tmpl">
+  <style>
+    :host .column {
+      background: #ebecf0;
+      width: 270px;
+      border-radius: 3px;
+      padding: 10px;
+      margin-right: 20px;
+    }
+    :host .column h3 {
+      color: #172b4d;
+      margin: 0 0 10px 0;
+    }
+    :host .add-card {
+      color: #5e6c84;
+      margin: 10px 0 0 0;
+    }
+    :host .add-card:hover {
+      cursor: pointer;
+    }
+  </style>
+
+  <div class="column">
+    <slot name="title"></slot>
+    <slot></slot>
+    <p class="add-card">+ Add a card</p>
+  </div>
+</template>
+
+<script>
+(function() {
+  let thisImportDoc = document.currentScript.ownerDocument;
+
+  class TrelloColumn extends HTMLElement {
+    constructor() {
+      super();
+    }
+
+    static get template() {
+      if (!this._template) {
+        this._template = thisImportDoc.querySelector("#trello-column-tmpl");
+      }
+      return this._template;
+    }
+
+    connectedCallback() {
+      console.log("trello-column connected to page");
+
+      let shadowRoot = this.attachShadow({mode: "open"});
+      let tmpl = TrelloColumn.template;
+      shadowRoot.appendChild(
+        document.importNode(tmpl.content,true)
+      );
+    }
+
+    disconnectedCallback() {
+      console.log("trello-column disconnected from page");
+    }
+
+    adoptedCallback() {
+      console.log("trello-column adopted in page");
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+      console.log("trello-column attr: " + name + " changed from '" +
+          oldValue + "' to '" + newValue + "'");
+    }
+  }
+
+  customElements.define("trello-column", TrelloColumn);
+})();
+</script>
