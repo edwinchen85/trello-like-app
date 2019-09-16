@@ -53,6 +53,29 @@
       shadowRoot.appendChild(
         document.importNode(tmpl.content,true)
       );
+
+      shadowRoot.querySelector(".add-card").addEventListener("click", e => {
+        const id = this.querySelectorAll('trello-card').length + 1;
+        const card = document.createElement('trello-card');
+        let cardTitle = document.createElement("DIV");
+        let cardDesc = document.createElement("DIV");
+        cardTitle.setAttribute("slot", "title");
+        cardDesc.textContent = "Description";
+        cardDesc.setAttribute("slot", "desc");
+        card.appendChild(cardTitle);
+        card.appendChild(cardDesc);
+        card.setAttribute("id", "card-" + id);
+        this.appendChild(card);
+        this.querySelector("#card-" + id + " [slot='title']").setAttribute("contenteditable", true);
+        this.querySelector("#card-" + id + " [slot='title']").focus();
+        this.querySelector("#card-" + id + " [slot='title']").addEventListener('keypress', e => {
+          if (e.keyCode === 13) { // enter key is pressed
+            e.target.blur();
+            e.target.removeAttribute('contenteditable');
+            return false;
+          }
+        });
+      });
     }
 
     disconnectedCallback() {
